@@ -3,3 +3,6 @@
 **/CMakeFiles
 **/CMakeCache.txt
 **/Makefile
+
+
+src/web-socket/web_socket
