@@ -1,25 +1,17 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 
-#ifdef WIN32
-	// For windows
-	#include <winsock2.h>
-#else
-	// For linux
-	#include <sys/socket.h>
-	#include <netinet/in.h>
-	#include <arpa/inet.h>
-#endif
-
-
+// For linux
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
 #define PORT 3490
 
-
-int main(int argc, char *argv[])
+int linux_web_socket()
 {
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
 	// Functions `htonl()` and `htons()` are necessary to make sure that the bits that compose
@@ -50,24 +42,18 @@ int main(int argc, char *argv[])
 		close(sock);
 		abort();
 	}
-	printf("Listening for incoming connections at %d\n", port);
-
-
-
-	char* buffer[4256] = {0};
+	printf("Listening for incoming connections at %d\n", PORT);
 
 	struct sockaddr_in their_addr; // connector's address information
+	int client_connected; // file descriptor to access the connection we accepted
 	socklen_t sock_addr_size = sizeof(struct sockaddr_in);
 
-	int client_connected;
 	if ((client_connected = accept(sock, (struct sockaddr *)&their_addr, &sock_addr_size))) {
 		printf("[INFO]: Client connected!\n");
 		printf("[INFO]: IP %s:%d connected!\n", inet_ntoa(their_addr.sin_addr), ntohs(their_addr.sin_port));
 	}
-	
-	//recv(client_connected, buffer, 4256, 0);
 
-	char *msg = "HTTP/1.1 200 OK\nContent-Length: 48\nContent-Type: text/html\nConnection: Closed\n\n<html><body><h1>Hello, World!</h1></body></html>";
+	char* msg = "HTTP/1.1 200 OK\nContent-Length: 48\nContent-Type: text/html\nConnection: Closed\n\n<html><body><h1>Hello, World!</h1></body></html>";
 	int len, bytes_sent;
 	len = strlen(msg);
 	bytes_sent = send(client_connected, msg, len, 0);
