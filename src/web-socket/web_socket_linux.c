@@ -11,7 +11,7 @@
 
 #define PORT 3490
 
-int linux_web_socket()
+int main()
 {
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
 	// Functions `htonl()` and `htons()` are necessary to make sure that the bits that compose

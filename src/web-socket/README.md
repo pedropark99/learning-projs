@@ -1,7 +1,7 @@
 # Web Sockets in C
 
 This folder contain some very simple examples I developed of Web Sockets in C.
-Here, I am using web sockets as a HTTP server (i.e. a server that responds to income connections with HTTP responses).
+Here, I am using web sockets as a very basic HTTP server (i.e. a server that responds to income connections with HTTP responses).
 
 This small project uses CMake to build, so, if ou want to build this project in
 our machine, run these commands:
