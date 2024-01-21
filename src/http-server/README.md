@@ -1,7 +1,6 @@
 # HTTP Server in Zig
 
-This folder contain a small project I created to develop
-a simple HTTP server in Zig.
+This folder contain a small example of a HTTP server written in Zig.
 
 To build and run the program run:
 
